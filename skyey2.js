@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            天雪论坛
-// @namespace       https://github.com/kakioff/soulsign-script/tree/main/skyey2
+// @namespace       https://github.com/kakioff/soulsign-script
 // @version         1.1.0
 // @author          byron
 // @loginURL        https://www.skyey2.com/login.php
@@ -40,7 +40,6 @@ async function go2login(name, password) {
     let result = await skfaid()
     result.get()
     params["skfaid"] = result.skfaId;
-    console.log(login_url, params);
     let ret = await axios({
         method: 'post',
         url: login_url,
@@ -53,7 +52,7 @@ async function go2login(name, password) {
     if (ret.status == 200) {
         return "登录成功"
     } else {
-        return "登录失败"
+        throw "登录失败"
     }
     // let ret = await axios.post(login_url, params)
     // if (ret.status == 200) {
