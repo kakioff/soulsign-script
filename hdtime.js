@@ -1,12 +1,60 @@
 // ==UserScript==
 // @name              HDTIME签到
-// @namespace         https://github.com/kakioff/soulsign-script/tree/main/hdtime
+// @namespace         https://github.com/kakioff/soulsign-script
+// @updateURL           https://raw.githubusercontent.com/kakioff/soulsign-script/main/hdtime.js
 // @version           1.0.0
 // @author            byron
-// @loginURL          https://hdtime.org
-// @expire            
+// @loginURL          https://hdtime.org/login.php
+// @expire            311000000e3
 // @domain            hdtime.org
+// @param name 用户名
+// @param pwd 密码
 // ==/UserScript==
+
+
+/**
+ * 登录
+ * 
+ * @param name 用户名
+ * @param password 密码
+ * @returns 登录状态
+ */
+ async function go2login(name, password) {
+    if (!name || !password)
+        throw "设置用户名密码后自动登录"
+
+    let { data } = await axios.get('https://hdtime.org/login.php'),
+        login_ifr = document.createElement("div")
+    login_ifr.innerHTML = data
+    let login_form = login_ifr.getElementsByTagName("form")[1],
+        login_url = "https://hdtime.org/takelogin.php",
+        params = {}
+    for (let i = 0; i < login_form.elements.length; i++) {
+        if (login_form.elements[i].name) {
+            params[login_form.elements[i].name] = login_form.elements[i].value
+        }
+    }
+    params["username"] = name
+    params["password"] = password
+    let ret = await axios({
+        method: 'post',
+        url: login_url,
+        //    必不可少，修改数据的提交方式
+        headers: {
+            "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        params
+    })
+    if (ret.status == 200) {
+        return "登录成功"
+    } else {
+        throw "登录失败"
+    }
+    // let ret = await axios.post(login_url, params)
+    // if (ret.status == 200) {
+    //     return "登录成功"
+    // }
+}
 
 function get_status(data_str) {
     var ifr = document.createElement("div")
@@ -26,7 +74,7 @@ function get_status(data_str) {
  * throw 签到失败并抛出失败原因
  * return 签到成功并返回成功信息
  */
-exports.run = async function () {
+exports.run = async function (param) {
     var ret = await axios.get('https://hdtime.org'),
         done_text = get_status(ret.data)
     if (/签到已得/.test(done_text)) return done_text;
@@ -34,15 +82,15 @@ exports.run = async function () {
     var ret = await axios.get('https://hdtime.org/attendance.php');
     if (ret.status != 200) throw '需要登录';
     if (/签到成功/.test(ret.data)) return get_status(ret.data);
-    let m = /redeem\?once=(.*?)'/.exec(ret.data);
-    if (!m) throw '失败1';
+    return go2login(param.name, param.pwd)
 }
 
 /**
  * 检查是否在线接口，可以使用axios库发起请求,请求url域名必须通过@domain声明
  * return true 代表在线
  */
-exports.check = async function () {
+exports.check = async function (param) {
     var ret = await axios.get('https://hdtime.org/attendance.php');
-    return ret.status == 200;
+    if(ret.status == 200) return true;
+    return go2login(param.name, param.pwd)
 };
