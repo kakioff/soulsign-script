@@ -2,7 +2,7 @@
 // @name              HDTIME签到
 // @namespace         https://github.com/kakioff/soulsign-script
 // @updateURL           https://raw.githubusercontent.com/kakioff/soulsign-script/main/hdtime.js
-// @version           1.0.0
+// @version           1.1.0
 // @author            byron
 // @loginURL          https://hdtime.org/login.php
 // @expire            311000000e3
