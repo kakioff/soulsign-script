@@ -60,6 +60,7 @@ async function go2login(name, password) {
     //     return "登录成功"
     // }
 }
+
 exports.run = async function (param) {
     var { data } = await axios.get('https://www.skyey2.com');
     var ifr = document.createElement("div")
