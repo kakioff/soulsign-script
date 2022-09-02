@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              HDTIME签到
-// @namespace         https://hdtime.org
+// @namespace         https://github.com/kakioff/soulsign-script/tree/main/hdtime
 // @version           1.0.0
 // @author            byron
 // @loginURL          https://hdtime.org
