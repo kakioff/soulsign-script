@@ -7,8 +7,6 @@
 // @loginURL          https://carpt.net
 // @expire            31100e7
 // @domain            carpt.net
-// @param name 用户名
-// @param pwd 密码
 // ==/UserScript==
 
 
