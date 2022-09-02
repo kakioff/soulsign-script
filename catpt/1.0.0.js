@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              CarPT签到
-// @namespace         https://carpt.net
+// @namespace         https://github.com/kakioff/soulsign-script/tree/main/catpt
 // @version           1.0.0
 // @author            byron
 // @loginURL          https://carpt.net/login.php
