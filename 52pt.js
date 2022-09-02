@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name              52PT签到
-// @namespace         https://github.com/kakioff/soulsign-script/tree/main/52pt
+// @namespace         https://github.com/kakioff/soulsign-script
+// @updateURL           https://raw.githubusercontent.com/kakioff/soulsign-script/main/52pt.js
 // @version           1.0.0
 // @author            byron
-// @loginURL          https://52pt.site/login.php
-// @expire            
+// @loginURL          https://52pt.site
+// @expire            31100e7
 // @domain            52pt.site
 // ==/UserScript==
 
@@ -13,7 +14,7 @@
  * 
  * @param data_str 
  */
-function sign_start(data_str){
+ function sign_start(data_str){
     var ifr = document.createElement("div")
     ifr.style.display = 'none'
     ifr.innerHTML = data_str
@@ -44,13 +45,14 @@ function sign_start(data_str){
     if(!/今天已经签过到了/.test(ret.data)){
         // 开始签到
         sign_start(ret.data)
+        var ret = await axios.get('https://52pt.site/bakatest.php');
+        sign_start(ret.data)
         setTimeout(run(), 10000)
     }
     ret = await axios.get('https://52pt.site/bakatest.php');
     var ifr = document.createElement("div")
     ifr.innerHTML = ret.data
     return ifr.getElementsByTagName("table")[6].innerText.replace("\n", "")
-    // -------
 }
 
 /**
