@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            天雪论坛
-// @namespace       https://github.com/inu1255/soulsign-chrome
+// @namespace       https://github.com/kakioff/soulsign-script/tree/main/skyey2
 // @version         1.0.0
 // @author          byron
 // @loginURL        https://www.skyey2.com/login.php
