@@ -41,7 +41,7 @@ async function go2login(name, password) {
     result.get()
     params["skfaid"] = result.skfaId;
     console.log(login_url, params);
-    let ret = axios({
+    let ret = await axios({
         method: 'post',
         url: login_url,
         //    必不可少，修改数据的提交方式
